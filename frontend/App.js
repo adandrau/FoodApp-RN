@@ -1,16 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Menu from './components/Menu'; 
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Tabs from './navigation/Tabs';
+import Checkout from './screens/Checkout';
+import Menu from './screens/Menu';
+import HomeScreen from './screens/HomePage';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-    <View style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
-      <Menu />
-    </View>
-      <Tabs />
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} /> 
+        <Stack.Screen name="Menu" component={Menu} />
+        <Stack.Screen name="Checkout" component={Checkout} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
