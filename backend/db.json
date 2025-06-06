@@ -6,7 +6,7 @@
       "emoji": "🍔",
       "price": 100,
       "descripcion": "La clásica que nunca falla. Jugosa carne a la plancha, pan dorado, y el combo perfecto de ingredientes que te hacen agua la boca. ¡Pedila antes de que se acabe!",
-      "stock": 2,
+      "stock": 10,
       "carrito": 0
     },
     {
@@ -15,8 +15,8 @@
       "emoji": "🌮",
       "price": 50,
       "descripcion": "Explosión de sabor en cada mordida. Tortilla suave rellena con ingredientes frescos y especias irresistibles. Tan rico que no vas a poder pedir solo uno.",
-      "stock": 1,
-      "carrito": 2
+      "stock": 10,
+      "carrito": 0
     },
     {
       "id": "pancho",
@@ -24,7 +24,7 @@
       "emoji": "🌭",
       "price": 40,
       "descripcion": "El infaltable del antojo. Salchicha al vapor o a la plancha, pan esponjoso y todos los toppings que te gustan. Ideal para una comida rápida, sabrosa y sin complicaciones.",
-      "stock": 0,
+      "stock": 10,
       "carrito": 0
     },
     {
@@ -34,7 +34,7 @@
       "price": 100,
       "descripcion": "Crocan-te-men-te adictivas. Doradas, crujientes y con la sal justa. Perfectas para acompañar cualquier plato... o para comer solas. ¡Un clásico que siempre va!",
       "stock": 0,
-      "carrito": 1
+      "carrito": 0
     },
     {
       "id": "ramen",
@@ -42,7 +42,7 @@
       "emoji": "🍜",
       "price": 120,
       "descripcion": "Un viaje directo a Japón. Caldo sabroso, fideos perfectos y toppings gourmet. Ideal para esos días en que necesitás algo reconfortante y lleno de umami.",
-      "stock": 0,
+      "stock": 10,
       "carrito": 0
     },
     {
@@ -51,8 +51,8 @@
       "emoji": "🌯",
       "price": 160,
       "descripcion": "El rey de los enrollados. Tortilla grande, rellena de sabor: carne, arroz, frijoles, queso, salsas... ¡Todo lo que amás en una sola bomba deliciosa!",
-      "stock": 9,
-      "carrito": 1
+      "stock": 7,
+      "carrito": 0
     }
   ]
 }
