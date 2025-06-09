@@ -53,6 +53,24 @@
       "descripcion": "El rey de los enrollados. Tortilla grande, rellena de sabor: carne, arroz, frijoles, queso, salsas... ¡Todo lo que amás en una sola bomba deliciosa!",
       "stock": 7,
       "carrito": 0
+    },
+    {
+      "id": "Jamón",
+      "name": "Jamaon",
+      "emoji": "🍖",
+      "price": 200,
+      "descripcion": "Jamón",
+      "stock": 4,
+      "carrito": 1
+    },
+    {
+      "id": "Cuadril",
+      "name": "Cuadril",
+      "emoji": "🥩",
+      "price": 50,
+      "descripcion": "Cuadril",
+      "stock": 2,
+      "carrito": 0
     }
   ]
 }

@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import Footer from '../components/Footer';
-
 
 export default function Menu({ navigation, foods, loading, error, handleUpdate }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.izq}>
-    <Text style={styles.offerText}>${Math.round(item.price * 1.1)}</Text>
+        <Text style={styles.offerText}>${Math.round(item.price * 1.1)}</Text>
         <Text style={styles.emoji}>{item.emoji}</Text>
         <View style={styles.buttons}>
           <TouchableOpacity
@@ -18,12 +17,12 @@ export default function Menu({ navigation, foods, loading, error, handleUpdate }
             <Text style={styles.buttonText}>−</Text>
           </TouchableOpacity>
           <Text style={styles.qty}>{item.carrito}</Text>
-        <TouchableOpacity
-          onPress={() => handleUpdate(item, 1)}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleUpdate(item, 1)}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.info}>
@@ -31,7 +30,6 @@ export default function Menu({ navigation, foods, loading, error, handleUpdate }
         <Text style={styles.descripcion}>{item.descripcion}</Text>
         <Text style={styles.price}>${item.price}</Text>
       </View>
-      
     </View>
   );
 
@@ -51,22 +49,30 @@ export default function Menu({ navigation, foods, loading, error, handleUpdate }
       </View>
     );
   }
-  
+
   return (
     <View style={{ flex: 1 }}>
-    <View style={styles.container}>
-      <FlatList
-        data={foods}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-      />
-    </View>
-    <Footer
+      <View style={styles.container}>
+        <FlatList
+          data={foods}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderItem}
+        />
+      </View>
+      <View style={styles.addButtonContainer}>
+        <Button
+          title="Agregar Food"
+          onPress={() => navigation.navigate('AddFood')}
+          color="#4CAFAF"
+        />
+      </View>
+      <Footer
         leftLabel="Cancel"
         onLeft={() => navigation.navigate('Home')}
         rightLabel="Checkout"
         onRight={() => navigation.navigate('Checkout')}
       />
+
     </View>
   );
 }
@@ -79,6 +85,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     borderRadius: 8,
     padding: 10,
+  },
+  addButtonContainer: {
+    marginBottom: 12,
   },
   emoji: { fontSize: 90, width: 80, height: 80, borderRadius: 8 },
   info: { marginLeft: 12, flex: 1 },
@@ -101,29 +110,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   offerCircle: {
-  backgroundColor: '#e53935', // rojo oferta
-  borderRadius: 40,
-  width: 40,
-  height: 40,
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: 8,
-  marginLeft: 0,
-  shadowColor: '#000',
-  shadowOpacity: 0.18,
-  shadowRadius: 4,
-  shadowOffset: { width: 0, height: 2 },
-},
-offerText: {
-  color: '#e53935',
-  fontWeight: 'bold',
-  fontSize: 16,
-  textDecorationLine: 'line-through', // tachado para precio original
-  textDecorationStyle: 'solid', // estilo de tachado
-  textDecorationThickness: 13, // grosor del tachado
-  textDecorationColor: '#fff', // color del tachado
-  marginLeft: 8,
-},
+    backgroundColor: '#e53935', // rojo oferta
+    borderRadius: 40,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+    marginLeft: 0,
+    shadowColor: '#000',
+    shadowOpacity: 0.18,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  offerText: {
+    color: '#e53935',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textDecorationLine: 'line-through', // tachado para precio original
+    textDecorationStyle: 'solid', // estilo de tachado
+    textDecorationThickness: 13, // grosor del tachado
+    textDecorationColor: '#fff', // color del tachado
+    marginLeft: 8,
+  },
   buttonText: { fontSize: 20, fontWeight: 'bold' },
   qty: { fontSize: 18, marginHorizontal: 8 },
   izq: { alignItems: 'center', justifyContent: 'center' },
