@@ -36,7 +36,6 @@ export const useItems = () => {
         stock: product.stock - delta
       });
 
-      // Refrescar producto modificado
       setFoods(prevFoods =>
         prevFoods.map(item =>
           item.id === product.id
@@ -50,24 +49,17 @@ export const useItems = () => {
   };
   const placeOrder = async () => {
   try {
-    // Get items in cart
     const itemsToOrder = foods.filter(item => item.carrito > 0);
-
-    // Update each item in backend (set carrito to 0, stock stays as is)
     await Promise.all(itemsToOrder.map(item =>
       axios.patch(`${API_URL}/foods/${item.id}`, {
         carrito: 0
-        // Optionally update stock if needed
       })
     ));
-
-    // Update local state: clear carrito
     setFoods(prevFoods =>
       prevFoods.map(item =>
         item.carrito > 0 ? { ...item, carrito: 0 } : item
       )
     );
-    // Optionally navigate to a confirmation screen
     console.log('Order placed successfully');
     alert('Order placed successfully!');
     return true;
@@ -76,5 +68,5 @@ export const useItems = () => {
     return false;
   }
 };
-  return { foods, loading, error, handleUpdate, placeOrder };
+  return { foods, loading, error, handleUpdate, placeOrder, setFoods };
 };

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState} from 'react';
 import { Alert } from 'react-native';
 import axios from 'axios';
 import { API_URL } from '../config';
 
-export const useAddFoodItem = () => {
+export const useAddFoodItem = (setFoods, navigation) => {
   const [form, setForm] = useState({
     id: '',
     name: '',
@@ -50,6 +50,7 @@ export const useAddFoodItem = () => {
       const response = await axios.post(`${API_URL}/foods`, newItem);
       if (response.status === 200 || response.status === 201) {
         Alert.alert("Éxito", "Producto agregado correctamente.");
+        setFoods(prev => [...prev, response.data]);
         resetForm();
       } else {
         Alert.alert("Error", "No se pudo agregar el producto.");
@@ -59,7 +60,6 @@ export const useAddFoodItem = () => {
       Alert.alert("Error", "Hubo un problema al conectar con el servidor.");
     }
   };
-
   return {
     form,
     handleChange,
