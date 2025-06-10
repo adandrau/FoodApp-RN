@@ -5,12 +5,25 @@ import Menu from './screens/Menu';
 import HomeScreen from './screens/HomePage';
 import AddFood from './screens/AddFood';
 import { useItems } from './hooks/useItems';
-
+import React, { useEffect } from 'react';
+import storage from './context/storage';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const itemsHook = useItems();
+
+  useEffect(() => {
+  storage.load({ key: 'carrito' })
+    .then(savedCart => {
+      // Actualiza foods con las cantidades guardadas
+      setFoods(foods.map(f => {
+        const found = savedCart.find(c => c.id === f.id);
+        return found ? { ...f, carrito: found.carrito } : f;
+      }));
+    })
+    .catch(() => {}); // Si no hay carrito guardado, no hace nada
+    }, []);
 
   return (
     <NavigationContainer>

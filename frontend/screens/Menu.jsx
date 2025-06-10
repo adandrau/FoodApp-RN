@@ -1,8 +1,20 @@
 import React from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import Footer from '../components/Footer';
-
+import storage from '../context/storage';
 export default function Menu({ navigation, foods, loading, error, handleUpdate }) {
+  // Nuevo handleUpdate que guarda en storage
+  const handleUpdateAndSave = (item, delta) => {
+    handleUpdate(item, delta); 
+    // Guarda el carrito actualizado
+    const newCart = foods.map(f =>
+      f.id === item.id ? { ...f, carrito: Math.max(0, (f.carrito || 0) + delta) } : f
+    );
+    storage.save({
+      key: 'carrito',
+      data: newCart.filter(f => f.carrito > 0),
+    });
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
@@ -11,14 +23,14 @@ export default function Menu({ navigation, foods, loading, error, handleUpdate }
         <Text style={styles.emoji}>{item.emoji}</Text>
         <View style={styles.buttons}>
           <TouchableOpacity
-            onPress={() => handleUpdate(item, -1)}
+            onPress={() => handleUpdateAndSave(item, -1)}
             style={styles.button}
           >
             <Text style={styles.buttonText}>−</Text>
           </TouchableOpacity>
           <Text style={styles.qty}>{item.carrito}</Text>
           <TouchableOpacity
-            onPress={() => handleUpdate(item, 1)}
+            onPress={() => handleUpdateAndSave(item, 1)}
             style={styles.button}
           >
             <Text style={styles.buttonText}>+</Text>

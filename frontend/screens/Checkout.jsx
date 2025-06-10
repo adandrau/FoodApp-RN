@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,24 @@ import {
   StyleSheet,
 } from 'react-native';
 import Footer from '../components/Footer';
+import storage from '../context/storage';
 
-export default function Checkout({ foods, handleUpdate, placeOrder, navigation}) {
-  const checkoutItems = foods.filter(item => item.carrito > 0);
+export default function Checkout({ navigation, placeOrder }) {
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    storage.load({ key: 'carrito' })
+      .then(savedCart => setCart(savedCart))
+      .catch(() => setCart([]));
+  }, []);
 
   const handleRemove = (item) => {
-    handleUpdate(item, -item.carrito); // Remove all from cart
+    const newCart = cart.filter(f => f.id !== item.id);
+    setCart(newCart);
+    storage.save({
+      key: 'carrito',
+      data: newCart,
+    });
   };
 
   const renderItem = ({ item }) => (
@@ -37,12 +49,12 @@ export default function Checkout({ foods, handleUpdate, placeOrder, navigation})
   return (
     <View style={styles.container}>
       <FlatList
-        data={checkoutItems}
+        data={cart}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         ListEmptyComponent={<Text style={styles.empty}>No hay productos en el carrito.</Text>}
       />
-      <Text style={styles.total}>Total: ${checkoutItems.reduce((sum, item) => sum + item.price * item.carrito, 0)}</Text>
+      <Text style={styles.total}>Total: ${cart.reduce((sum, item) => sum + item.price * item.carrito, 0)}</Text>
       <Footer 
         leftLabel="Cancel"
         onLeft={() => navigation.navigate('Home')}
@@ -50,9 +62,9 @@ export default function Checkout({ foods, handleUpdate, placeOrder, navigation})
         onRight={() => placeOrder()}
       />
     </View>
-
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
